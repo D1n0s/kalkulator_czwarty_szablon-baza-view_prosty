@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+
+	
+	 <p:panel header="KALKULATOR KREDYTOWY  1.0 + PrimeFaces" >
+	<h:form id="bla">
+	
+	        <h:panelGrid id="grid" columns="3" cellpadding="7">
+	<p:outputLabel for="kwota" value="Jaka kwota ? "/> 
+  	<p:inputText id="kwota" value="#{kredytBB.kwota}"  required="true"
+  	 			requiredMessage="Musisz podać jakąś kwotę"
+  				converterMessage="musisz wpisać jakąś liczbę."
+  				validatorMessage="Kwota pożyczki zaczyna się od 1000 złotych, a kończy na 15000">
+  			<f:validateDoubleRange minimum="999.99" maximum="15000"></f:validateDoubleRange>
+  		</p:inputText>
+  	<p:message for="kwota" display=""/>
+  	
+  	<p:outputLabel for="procent" value="Jaki procent ? " /> 
+  	<p:inputText id="procent" value="#{kredytBB.procent}" required="true"  
+  				requiredMessage="Musisz podać jakiś procent" 
+  				converterMessage="musisz wpisać jakąś liczbę." 
+  			 	validatorMessage="Minimalne oprocentowanie to: 3%, a największy to 15%">
+   	  		<f:validateDoubleRange minimum="3" maximum="15"></f:validateDoubleRange>
+   		</p:inputText>
+  	<p:message for="procent" display=""/>
+
+  	<p:outputLabel for="czas" value="Na ile miesięcy  ? " /> 
+  	<p:inputText id="czas" value="#{kredytBB.czas}"  required="true"  
+  				requiredMessage="Musisz podać jakiś czas"
+  				converterMessage="musisz wpisać jakąś liczbę." 
+  				validatorMessage="Minimalny czas pożyczki to 3 miesiące, a maksymalny to 48 miesięcy.">
+			<f:validateDoubleRange minimum="3" maximum="48"></f:validateDoubleRange>
+	</p:inputText>
+  	<p:message for="czas" display=""/>
+     	
+
+		<p:commandButton value="Oblicz!" action="#{kredytBB.calc()}" update="@form"/>	
+
+        </h:panelGrid>
+       <!--  <p:messages id="messages" showDetail="false" display="text" />    Stare message--> 
+	</h:form>
+
+    </p:panel>
+
+<!--  -->
+	<h:form id="form-table" style="margin-bottom:1em;">
+
+
+
+		<p:dataTable value="#{personListBB.list}" var="p">
+
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="imię" />
+				</f:facet>
+				<h:outputText value="#{p.idRola}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="nazwa_roli" />
+				</f:facet>
+				<h:outputText value="#{p.nazwaRoli}" />
+			</p:column>
+
+			<p:column priority="4">
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{p.idRola}" />
+
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+
+<!--  -->
+
+	</ui:define>
+
+</ui:composition>
+</html>
